@@ -33,7 +33,7 @@ class ApiTodoController extends Controller
             'url' => $request->url,
             'css_selector' => $request->css_selector,
         ]);
-        return response()->json($obj, 201);
+        return response()->json($obj->id, 201);
     }
 
     /**
