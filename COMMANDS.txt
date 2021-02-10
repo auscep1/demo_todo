@@ -36,3 +36,11 @@ $ docker pull phpmyadmin/phpmyadmin
 # docker tag demo_backend:latest auscep1/backend:latest
 # docker images
 # docker push auscep1/backend:latest
+
+
+
+git add .
+git commit -m  "first"
+git remote add master https://github.com/auscep1/demo_todo.git
+git push master
+git push --all master

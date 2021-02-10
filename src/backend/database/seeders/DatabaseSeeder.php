@@ -6,6 +6,8 @@ use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
+    // php artisan migrate:refresh --seed
+    //docker-compose exec backend php artisan migrate
     /** docker-compose exec backend php artisan migrate
      * Seed the application's database.
      *
