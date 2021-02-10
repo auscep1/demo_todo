@@ -1,0 +1,61 @@
+version: '3.8'
+# Services
+services:
+  # Nginx Service
+  nginx:
+    image: nginx:1.19-alpine
+    ports:
+      - 8081:8081
+    volumes:
+      - ./src/backend:/var/www/backend:ro,delegated
+      - ./.docker/nginx/conf.d:/etc/nginx/conf.d:ro
+      - phpmyadmindata:/var/www/phpmyadmin:ro,delegated
+    depends_on:
+      - backend
+      - phpmyadmin
+      - frontend
+
+  # Backend Service
+  backend: # http://backend.demo:8081/
+    build: src/backend
+    working_dir: /var/www/backend
+    volumes:
+      - ./src/backend:/var/www/backend:delegated
+    depends_on:
+      - mysql
+  # Frontend Service
+  frontend:
+#    image: frontend
+#    ports:
+#     - 8081:8000
+    build: src/frontend
+    working_dir: /var/www/frontend
+    volumes:
+      - ./src/frontend:/var/www/frontend:delegated
+    depends_on:
+      - backend
+
+  # MySQL Service
+  mysql:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: demo
+    volumes:
+      - ./.docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf:ro
+      - mysqldata:/var/lib/mysql:delegated
+
+  # PhpMyAdmin Service
+  phpmyadmin: # http://phpmyadmin.demo:8081/
+    image: phpmyadmin/phpmyadmin:5-fpm-alpine
+    environment:
+      PMA_HOST: mysql
+    volumes:
+      - phpmyadmindata:/var/www/html:delegated
+    depends_on:
+      - mysql
+
+# Volumes
+volumes:
+  mysqldata:
+  phpmyadmindata:

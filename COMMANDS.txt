@@ -1,0 +1,38 @@
+$ docker-compose build frontend
+$ docker-compose exec backend php artisan
+$ docker-compose exec backend composer
+
+
+# Docker:
+
+# Dockerfile
+https://tech.osteel.me/posts/docker-for-local-web-development-part-3-a-three-tier-architecture-with-frameworks
+$ docker-compose down -v
+$ docker-compose run --rm backend php -m docker-compose up -d --net=host
+
+$ docker-compose build backend
+$ docker-compose run --rm backend composer create-project --prefer-dist laravel/laravel tmp "8.*"
+$ docker-compose run --rm backend sh -c "mv -n tmp/.* ./ && mv tmp/* ./ && rm -Rf tmp"
+$ docker-compose restart
+$ docker-compose up -d
+$ docker-compose ps
+# Open docker ports:
+$ docker container run -P -d nginx
+$ netstat
+$ docker ps -a
+
+$ docker pull nginx
+$ docker run --name some-nginx -v /some/content:/usr/share/nginx/html:ro -d nginx
+$ docker build -t some-content-nginx .
+$ docker run --name some-nginx -d some-content-nginx
+$ docker run --name some-nginx -d -p 8080:80 some-content-nginx
+
+$ docker-compose logs nginx
+$ docker-compose stop
+$ docker-compose down
+$ docker pull phpmyadmin/phpmyadmin
+
+# # docker login
+# docker tag demo_backend:latest auscep1/backend:latest
+# docker images
+# docker push auscep1/backend:latest
