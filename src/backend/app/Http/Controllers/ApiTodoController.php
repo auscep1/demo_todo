@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Todo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ApiTodoController extends Controller
 {
@@ -39,9 +40,9 @@ class ApiTodoController extends Controller
      * @param Todo $todo
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show(Todo $todo)
+    public function show($id)
     {
-        return response()->json($todo, 200);
+        return response()->json(Todo::findOrFail($id), 200);
     }
 
     /**
@@ -71,5 +72,6 @@ class ApiTodoController extends Controller
     public function destroy(Todo $todo)
     {
         $todo->delete();
+        return response()->json(null, 204);
     }
 }

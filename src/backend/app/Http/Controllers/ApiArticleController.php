@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
-use Illuminate\Contracts\Validation\Validator;
+use App\Models\Todo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ApiArticleController extends Controller
 {
@@ -40,9 +41,9 @@ class ApiArticleController extends Controller
      * @param Article $article
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show(Article $article)
+    public function show( $id)
     {
-        return response()->json($article, 200);
+        return response()->json(Article::findOrFail($id), 200);
     }
 
     /**
@@ -72,5 +73,6 @@ class ApiArticleController extends Controller
     public function destroy(Article $article)
     {
         $article->delete();
+        return response()->json(null, 204);
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\ApiArticleController;
+use App\Http\Controllers\ApiTodoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,9 +24,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/ping', function () {
     return 'OK';
 });
-Route::resource('crawl', 'ApiTodoController', [
+Route::resource('crawl', ApiTodoController::class, [
     'only' => ['store', 'show']
 ]);
-Route::resource('articles', 'ApiArticleController', [
-    'only' => ['index']
+Route::resource('articles', ApiArticleController::class, [
+    'only' => ['index','store']
 ]);
