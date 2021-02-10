@@ -22,3 +22,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/ping', function () {
     return 'OK';
 });
+Route::resource('crawl', 'ApiTodoController', [
+    'only' => ['store', 'show']
+]);
+Route::resource('articles', 'ApiArticleController', [
+    'only' => ['index']
+]);
